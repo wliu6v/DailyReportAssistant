@@ -25,25 +25,20 @@ namespace DailyReportAssistant
 
             Transcation.Initialize();
 
-            textBox1.Text = GlobalVar.yesterdayDailyReport[0];
-            textBox2.Text = GlobalVar.yesterdayDailyReport[1];
-            textBox3.Text = GlobalVar.yesterdayDailyReport[2];
-            textBox4.Text = GlobalVar.yesterdayDailyReport[3];
-            textBox5.Text = GlobalVar.yesterdayDailyReport[4];
+            String[] texts = Transcation.Read();
+            textBox1.Text = GlobalVar.dailyReport[0];
+            textBox2.Text = GlobalVar.dailyReport[1];
+            textBox3.Text = GlobalVar.dailyReport[2];
+            textBox4.Text = GlobalVar.dailyReport[3];
+            textBox5.Text = GlobalVar.dailyReport[4];
 
         }
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            String[] texts = new String[5];
-            texts[0] = textBox1.Text;
-            texts[1] = textBox2.Text;
-            texts[2] = textBox3.Text;
-            texts[3] = textBox4.Text;
-            texts[4] = textBox5.Text;
+            String[] texts = { textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text};
 
-            Transcation.generateDailyReport(texts);
-            Transcation.writeDailyReportToFile();
+            Transcation.Write(texts);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

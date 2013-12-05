@@ -12,8 +12,6 @@ namespace DailyReportAssistant
         private static String _filePath = "";
         private static String _allText = "";
         private static Encoding _fileEncoding = Encoding.Default;
-        private static String[] _yesterdayDailyReport = new String[5];
-        private static String[] _todayDailyReport = new String[5];
         private static String[] _dailyReport = new String[5];
         
 
@@ -73,35 +71,12 @@ namespace DailyReportAssistant
             }
         }
 
-        public static String[] yesterdayDailyReport
-        {
-            get
-            {
-                return _yesterdayDailyReport;
-            }
-            set
-            {
-                String[] _yesterdayDailyReport = (String[])value.Clone();
-            }
-        }
-         
-        public static String[] todayDailyReport
-        {
-            get
-            {
-                return _todayDailyReport;
-            }
-            set
-            {
-                String[] _todayDailyReport = (String[])value.Clone();
-            }
-        }
     }
 
     public class Transcation
     {
         // 设置日报路径
-        public static bool setFilePath(String filePath)
+        private static bool setFilePath(String filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -115,7 +90,7 @@ namespace DailyReportAssistant
         }
 
         // 根据日报路径获取日报内容
-        public static String getFileText()
+        private static String getFileText()
         {
             if (GlobalVar.filePath.Length == 0)
             {
@@ -132,7 +107,7 @@ namespace DailyReportAssistant
         }
 
         // 获取当天日期,并进行格式化
-        public static String getDate()
+        private static String getDate()
         {
             GlobalVar.date = DateTime.Now.ToString("yyyy-MM-dd");
             GlobalVar.date = GlobalVar.date.Replace("-", "/");
@@ -162,7 +137,7 @@ namespace DailyReportAssistant
         }
         
         // 获取当天日报内容/获取前一次日报内容.
-        public static bool readDailyReport()
+        private static bool readDailyReport()
         {
             GlobalVar.allText = getFileText();
             String text = GlobalVar.allText.Replace("\r\n", "\n");
@@ -171,71 +146,44 @@ namespace DailyReportAssistant
             String topBlock = "";   // 每天为一块
 
             // 取出最上面一天的日报
-            topLine = copyLine(text);
+            topLine = moveLine(ref text);
+            topBlock = text.Substring(0, text.IndexOf("\n\n") + 1);
+
+            int i = 0;
+            while (topBlock.Length > 0)
+            {
+                topLine = moveLine(ref topBlock);
+                topLine = topLine.Substring(2, topLine.Length - 2);
+                GlobalVar.dailyReport[i] = topLine;
+                i++;
+            }
             
-            // 判断最上面一天日报是否为今天日报
-            if (topLine.IndexOf(GlobalVar.date) != -1)
-            {
-                topLine = moveLine(ref text);
-                topBlock = text.Substring(0, text.IndexOf("\n\n"));
-                text = text.Substring(topBlock.Length + 2, text.Length - topBlock.Length - 2);
-
-                int i = 0;
-                while (topBlock.Length > 0)
-                {
-                    topLine = moveLine(ref topBlock);
-                    topLine = topLine.Substring(2, topLine.Length - 2);
-                    GlobalVar.yesterdayDailyReport[i] = topLine;
-                    i++;
-                }
-            }
-
-            // 找到昨天日报
-            String yesterdayDate = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
-            yesterdayDate = yesterdayDate.Replace("-","/");
-            yesterdayDate = yesterdayDate + "/" + ((Convert.ToInt32(DateTime.Now.AddDays(-1).DayOfWeek)).ToString());
-            if (topLine.IndexOf(yesterdayDate) != -1)
-            {
-                // 获取昨天日报
-                topLine = moveLine(ref text);
-                topBlock = text.Substring(0, text.IndexOf("\n\n") + 1);
-                text = text.Substring(topBlock.Length + 1, text.Length - topBlock.Length - 1);
-
-                int i = 0;
-                while (topBlock.Length > 0)
-                {
-                    topLine = moveLine(ref topBlock);
-                    topLine = topLine.Substring(2, topLine.Length - 2);
-                    GlobalVar.yesterdayDailyReport[i] = topLine;
-                    i++;
-                }
-            }
             return true;
         }
 
         // 生成今天日报
-        public static bool generateDailyReport(String []texts) 
+        private static bool generateDailyReport(String[] texts) 
         {
             int i = 0;
             while(i < 5)
             {
-                GlobalVar.todayDailyReport[i] = texts[i];
+                GlobalVar.dailyReport[i] = texts[i];
                 i++;
             }
             return true;
         }
 
         // 将日报内容写入文件中.
-        public static bool writeDailyReportToFile()
+        private static bool writeDailyReportToFile()
         {
             // 在文件末尾写了
             String writeStr = "";
             writeStr += GlobalVar.date;
             writeStr += "\r\n";
             int i = 0;
-            while (GlobalVar.todayDailyReport[i].Length > 0)
+            while (GlobalVar.dailyReport[i].Length > 0)
             {
-                writeStr += (i + 1).ToString() + "." + GlobalVar.todayDailyReport[i];
+                writeStr += (i + 1).ToString() + "." + GlobalVar.dailyReport[i];
                 writeStr += "\r\n";
                 i++;
             }
@@ -263,8 +211,19 @@ namespace DailyReportAssistant
             }
             Transcation.getFileText();
             Transcation.getDate();
-            Transcation.readDailyReport();
             return true;
+        }
+
+        public static String[] Read()
+        {
+            Transcation.readDailyReport();
+            return GlobalVar.dailyReport;
+        }
+
+        public static bool Write(String[] texts)
+        {
+            generateDailyReport(texts);
+            return writeDailyReportToFile();
         }
     }
 }
