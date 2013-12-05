@@ -1,0 +1,36 @@
+﻿<controls:MetroWindow
+	x:Class="DailyReportAssistant.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    Title="日报小助手" 
+	Height="350" 
+	Width="525"
+	ShowIconOnTitleBar="True"
+	WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+
+	<!-- 标题栏 -->
+	<controls:MetroWindow.WindowCommands>
+		<controls:WindowCommands>
+			<Button Content="Setting" />
+		</controls:WindowCommands>
+	</controls:MetroWindow.WindowCommands>
+
+	
+	<Grid>
+		<Label Content="日报内容1" Height="28" HorizontalAlignment="Left" Margin="30,-210,0,0" Name="label1" VerticalAlignment="Center" FontSize="12" />
+		<Label Content="日报内容2" Height="28" HorizontalAlignment="Left" Margin="30,-140,0,0" Name="label2" VerticalAlignment="Center" FontSize="12" />
+		<Label Content="日报内容3" Height="28" HorizontalAlignment="Left" Margin="30,-70,0,0" Name="label3" VerticalAlignment="Center" FontSize="12" />
+		<Label Content="日报内容4" Height="28" HorizontalAlignment="Left" Margin="30,0,0,0" Name="label4" VerticalAlignment="Center" FontSize="12" />
+		<Label Content="日报内容5" Height="28" HorizontalAlignment="Left" Margin="30,70,0,0" Name="label5" VerticalAlignment="Center" FontSize="12" />
+
+		<TextBox Height="28" Margin="100,-210,60,0" Name="textBox1" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容1" FontSize="14" />
+		<TextBox Height="28" Margin="100,-140,60,0"	Name="textBox2" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容2" FontSize="14" />
+		<TextBox Height="28" Margin="100,-70,60,0"	Name="textBox3" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容3" FontSize="14" />
+		<TextBox Height="28" Margin="100,0,60,0"	Name="textBox4" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容4" FontSize="14" />
+		<TextBox Height="28" Margin="100,70,60,0"	Name="textBox5" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容5" FontSize="14" />
+
+		<Button Content="取消" Height="23" HorizontalAlignment="Left" Margin="366,180,0,0" Name="btnCancel" VerticalAlignment="Center" Width="75" Click="btnCancel_Click" />
+		<Button Content="确定" Height="23" HorizontalAlignment="Left" Margin="264,180,0,0" Name="btnOK" VerticalAlignment="Center" Width="75" Click="btnOK_Click" />
+	</Grid>
+</controls:MetroWindow>
