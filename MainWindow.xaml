@@ -31,34 +31,30 @@
 				<Label Content="日报内容4" Height="28" HorizontalAlignment="Left" Margin="30,0,0,0" Name="label4" VerticalAlignment="Center" FontSize="12" />
 				<Label Content="日报内容5" Height="28" HorizontalAlignment="Left" Margin="30,70,0,0" Name="label5" VerticalAlignment="Center" FontSize="12" />
 
-				<TextBox Height="28" Margin="100,-210,60,0" Name="textBox1" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容1" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox1_KeyDown" TabIndex="1" />
-				<TextBox Height="28" Margin="100,-140,60,0"	Name="textBox2" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容2" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox2_KeyDown" TabIndex="2" />
-				<TextBox Height="28" Margin="100,-70,60,0"	Name="textBox3" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容3" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox3_KeyDown" TabIndex="3" />
-				<TextBox Height="28" Margin="100,0,60,0"	Name="textBox4" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容4" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox4_KeyDown" TabIndex="4" />
-				<TextBox Height="28" Margin="100,70,60,0"	Name="textBox5" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容5" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox5_KeyDown" TabIndex="5" />
+				<TextBox Height="28" Margin="100,-210,60,0" Name="textBox1" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容1" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox_KeyDown" TabIndex="1" />
+				<TextBox Height="28" Margin="100,-140,60,0"	Name="textBox2" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容2" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox_KeyDown" TabIndex="2" />
+				<TextBox Height="28" Margin="100,-70,60,0"	Name="textBox3" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容3" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox_KeyDown" TabIndex="3" />
+				<TextBox Height="28" Margin="100,0,60,0"	Name="textBox4" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容4" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox_KeyDown" TabIndex="4" />
+				<TextBox Height="28" Margin="100,70,60,0"	Name="textBox5" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容5" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox_KeyDown" TabIndex="5" />
 
 				<Button Content="取消" Height="23" HorizontalAlignment="Right" Margin="0,180,62,0" Name="btnCancel" VerticalAlignment="Center" Width="75" Click="btnCancel_Click" TabIndex="7" />
-				<Button Content="确定" Height="23" HorizontalAlignment="Right" Margin="0,180,162,0" Name="btnOK" VerticalAlignment="Center" Width="75" Click="btnOK_Click" TabIndex="6" />
-				<Button Content="打开日报文件" Height="23" HorizontalAlignment="Left" Margin="33,180,0,0" Name="btnOpen" VerticalAlignment="Center" Width="75" Click="btnOpen_Click" TabIndex="8" />
+				<Button Content="确定" Height="23" HorizontalAlignment="Right" Margin="0,180,162,0" Name="btnOK" VerticalAlignment="Center" Width="75" Click="btnOK_Click" TabIndex="6"  />
+				<Button Content="打开日报文件" Height="23" HorizontalAlignment="Left" Margin="33,180,0,0" Name="btnOpenFile" VerticalAlignment="Center" Width="75" Click="btnOpenFile_Click" TabIndex="8" />
 			</Grid>
 		</TabItem>
 
 		<TabItem x:Name="TabSetting" Header="设置" Height="0">
 			<Grid>
-				<Button Content="确定" 
-						Margin="0,180,162,0" 
-						HorizontalAlignment="Right" 
-						VerticalAlignment="Center" 
-						Width="75" 
-						Height="25" 
-						Click="btnSOK_Click" Name="btnSOK" />
-				<Button Content="取消" 
-						Margin="0,180,62,0" 
-						HorizontalAlignment="Right" 
-						VerticalAlignment="Center" 
-						Width="75" 
-						Height="25" 
-						Click="btnSCancel_Click" Name="btnSCancel" />
+				<Button Content="确定" Margin="0,180,162,0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Height="25" Click="btnSOK_Click" Name="btnSOK" />
+				<Button Content="取消" Margin="0,180,62,0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Height="25" Click="btnSCancel_Click" Name="btnSCancel" />
+				<Label Content="日报文件路径" Height="28" HorizontalAlignment="Left" Margin="30,40,0,0" Name="label6" VerticalAlignment="Top" FontSize="12"/>
+				<TextBox Height="28" HorizontalAlignment="Left" Margin="120,40,0,0" Name="textBoxFilePath" VerticalAlignment="Top" Width="301" FontSize="14"/>
+				<Button Content="浏览..." Height="23" HorizontalAlignment="Left" Margin="442,42,0,0" Name="btnSOpen" VerticalAlignment="Top" Width="42" Click="btnSOpen_Click" />
+				<Label Content="日报文件编码" Height="28" HorizontalAlignment="Left" Margin="30,85,0,0" Name="label7" VerticalAlignment="Top" FontSize="12"/>
+				<ComboBox Height="28" HorizontalAlignment="Left" Margin="120,85,0,0" Name="comboBoxFileEncoding" VerticalAlignment="Top" Width="120" />
+				<Button Content="自动检测编码" Height="23" HorizontalAlignment="Left" Margin="277,88,0,0" Name="btnSDetactEncoding" VerticalAlignment="Top" Width="94" />
+				<CheckBox Content="自动提交至SVN" Height="20" HorizontalAlignment="Left" Margin="34,133,0,0" Name="checkboxAutoCommit" VerticalAlignment="Top" />
+				
 			</Grid>
 		</TabItem>
 	</TabControl>

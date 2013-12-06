@@ -52,6 +52,19 @@ namespace DailyReportAssistant
 
         }
 
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (TabMain.IsSelected == true)
+            {
+                btnSetting.Content = "设置";
+            }
+            else if (TabSetting.IsSelected == true)
+            {
+                btnSetting.Content = "取消";
+            }
+        }
+
+
         //---- 主页面
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
@@ -75,7 +88,7 @@ namespace DailyReportAssistant
             Environment.Exit(Environment.ExitCode);
         }
 
-        private void btnOpen_Click(object sender, RoutedEventArgs e)
+        private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             process.StartInfo.FileName = "cmd.exe";
@@ -92,8 +105,7 @@ namespace DailyReportAssistant
             ((TextBox)sender).Select(0, ((TextBox)sender).Text.Length);
         }
 
-
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (Keyboard.Modifiers == ModifierKeys.Control && e.Key==Key.Enter)
             {
@@ -105,77 +117,18 @@ namespace DailyReportAssistant
                 btnCancel_Click(sender, e);
             }
 
-            if (e.Key == Key.Enter)
+            if ((e.Key == Key.Enter) || (e.Key == Key.Down))
             {
-                textBox2.Focus();
-            }
-        }
-        private void textBox2_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.Enter)
-            {
-                btnOK_Click(sender, e);
+                var uie = e.OriginalSource as UIElement;
+                e.Handled = true;
+                uie.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
             }
 
-            if (e.Key == Key.Escape)
+            if (e.Key == Key.Up)
             {
-                btnCancel_Click(sender, e);
-            }
-
-            if (e.Key == Key.Enter)
-            {
-                textBox3.Focus();
-            }
-        }
-        private void textBox3_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.Enter)
-            {
-                btnOK_Click(sender, e);
-            }
-
-            if (e.Key == Key.Escape)
-            {
-                btnCancel_Click(sender, e);
-            }
-
-            if (e.Key == Key.Enter)
-            {
-                textBox4.Focus();
-            }
-        }    
-        private void textBox4_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.Enter)
-            {
-                btnOK_Click(sender, e);
-            }
-
-            if (e.Key == Key.Escape)
-            {
-                btnCancel_Click(sender, e);
-            }
-
-            if (e.Key == Key.Enter)
-            {   
-                textBox5.Focus();
-            }
-        }
-        private void textBox5_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.Enter)
-            {
-                btnOK_Click(sender, e);
-            }
-
-            if (e.Key == Key.Escape)
-            {
-                btnCancel_Click(sender, e);
-            }
-
-            if (e.Key == Key.Enter)
-            {
-                btnOK.Focus();
+                var uie = e.OriginalSource as UIElement;
+                e.Handled = true;
+                uie.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
             }
         }
 
@@ -191,16 +144,10 @@ namespace DailyReportAssistant
             TabMain.IsSelected = true;
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void btnSOpen_Click(object sender, RoutedEventArgs e)
         {
-            if (TabMain.IsSelected == true)
-            {
-                btnSetting.Content = "设置";
-            }
-            else if (TabSetting.IsSelected == true)
-            {
-                btnSetting.Content = "取消";
-            }
+          
         }
     }
 }
