@@ -28,14 +28,15 @@ namespace DailyReportAssistant
 
             Transcation.Initialize();
 
+            // 主界面初始化
             String[] texts = Transcation.Read();
             textBox1.Text = GlobalVar.dailyReport[0];
             textBox2.Text = GlobalVar.dailyReport[1];
             textBox3.Text = GlobalVar.dailyReport[2];
             textBox4.Text = GlobalVar.dailyReport[3];
             textBox5.Text = GlobalVar.dailyReport[4];
-
             textBox1.Focus();
+
         }
 
         private void btnSetting_Click(object sender, RoutedEventArgs e)
@@ -60,10 +61,37 @@ namespace DailyReportAssistant
             }
             else if (TabSetting.IsSelected == true)
             {
+                settingViewInitial();
                 btnSetting.Content = "取消";
             }
         }
 
+        private void MetroWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.Enter)
+            {
+                if (TabMain.IsSelected)
+                {
+                    btnOK_Click(sender, e);
+                }
+                else if (TabSetting.IsSelected)
+                {
+                    btnSOK_Click(sender, e);
+                }
+            }
+
+            if (e.Key == Key.Escape)
+            {
+                if (TabMain.IsSelected)
+                {
+                    btnCancel_Click(sender, e);
+                }
+                else if (TabSetting.IsSelected)
+                {
+                    btnSCancel_Click(sender, e);
+                }   
+            }
+        }
 
         //---- 主页面
 
@@ -107,16 +135,6 @@ namespace DailyReportAssistant
 
         private void textBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key==Key.Enter)
-            {
-                btnOK_Click(sender, e);
-            }
-
-            if (e.Key == Key.Escape)
-            {
-                btnCancel_Click(sender, e);
-            }
-
             if ((e.Key == Key.Enter) || (e.Key == Key.Down))
             {
                 var uie = e.OriginalSource as UIElement;
@@ -134,6 +152,12 @@ namespace DailyReportAssistant
 
         //---- 设置页面
 
+        private void settingViewInitial()
+        {
+            textBoxFilePath.Text = GlobalVar.filePath;
+        }
+
+
         private void btnSOK_Click(object sender, RoutedEventArgs e)
         {
             TabMain.IsSelected = true;
@@ -144,10 +168,25 @@ namespace DailyReportAssistant
             TabMain.IsSelected = true;
         }
 
-
         private void btnSOpen_Click(object sender, RoutedEventArgs e)
         {
-          
+            System.Windows.Forms.OpenFileDialog openFile = new System.Windows.Forms.OpenFileDialog();
+            openFile.Title = "选择日报文件";
+            int pathLen = textBoxFilePath.Text.LastIndexOf("\\");
+            
+            openFile.InitialDirectory = textBoxFilePath.Text.Substring(0, pathLen);
+            openFile.FileName = textBoxFilePath.Text.Substring(pathLen + 1, textBoxFilePath.Text.Length - pathLen - 1);
+            openFile.DefaultExt = "*.txt";
+            openFile.Filter = "txt文件|*.txt|所有文件|*.*";
+            System.Windows.Forms.DialogResult result =  openFile.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK
+                || result == System.Windows.Forms.DialogResult.Yes)
+            {
+                textBoxFilePath.Text = openFile.FileName.Trim();
+            }
+
         }
+
+        
     }
 }
