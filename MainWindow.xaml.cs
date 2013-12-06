@@ -91,6 +91,11 @@ namespace DailyReportAssistant
                     btnSCancel_Click(sender, e);
                 }   
             }
+
+            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.O)
+            {
+                btnSetting_Click(sender, e);
+            }
         }
 
         //---- 主页面
@@ -160,6 +165,7 @@ namespace DailyReportAssistant
 
         private void btnSOK_Click(object sender, RoutedEventArgs e)
         {
+            GlobalVar.filePath = textBoxFilePath.Text;
             TabMain.IsSelected = true;
         }
 
