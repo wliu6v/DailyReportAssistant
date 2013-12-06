@@ -12,7 +12,7 @@
 	<!-- 标题栏 -->
 	<controls:MetroWindow.WindowCommands>
 		<controls:WindowCommands>
-			<Button Content="Setting" />
+			<Button Name="btnSetting" Content="设置" Click="btnSetting_Click"  TabIndex="9"/>
 		</controls:WindowCommands>
 	</controls:MetroWindow.WindowCommands>
 
@@ -24,13 +24,14 @@
 		<Label Content="日报内容4" Height="28" HorizontalAlignment="Left" Margin="30,0,0,0" Name="label4" VerticalAlignment="Center" FontSize="12" />
 		<Label Content="日报内容5" Height="28" HorizontalAlignment="Left" Margin="30,70,0,0" Name="label5" VerticalAlignment="Center" FontSize="12" />
 
-		<TextBox Height="28" Margin="100,-210,60,0" Name="textBox1" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容1" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox1_KeyDown" />
-		<TextBox Height="28" Margin="100,-140,60,0"	Name="textBox2" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容2" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox2_KeyDown"  />
-		<TextBox Height="28" Margin="100,-70,60,0"	Name="textBox3" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容3" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox3_KeyDown"  />
-		<TextBox Height="28" Margin="100,0,60,0"	Name="textBox4" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容4" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox4_KeyDown"  />
-		<TextBox Height="28" Margin="100,70,60,0"	Name="textBox5" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容5" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox5_KeyDown"  />
+		<TextBox Height="28" Margin="100,-210,60,0" Name="textBox1" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容1" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox1_KeyDown" TabIndex="1" />
+		<TextBox Height="28" Margin="100,-140,60,0"	Name="textBox2" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容2" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox2_KeyDown" TabIndex="2" />
+		<TextBox Height="28" Margin="100,-70,60,0"	Name="textBox3" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容3" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox3_KeyDown" TabIndex="3" />
+		<TextBox Height="28" Margin="100,0,60,0"	Name="textBox4" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容4" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox4_KeyDown" TabIndex="4" />
+		<TextBox Height="28" Margin="100,70,60,0"	Name="textBox5" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容5" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox5_KeyDown" TabIndex="5" />
 
-		<Button Content="取消" Height="23" HorizontalAlignment="Left" Margin="366,180,0,0" Name="btnCancel" VerticalAlignment="Center" Width="75" Click="btnCancel_Click" />
-		<Button Content="确定" Height="23" HorizontalAlignment="Left" Margin="264,180,0,0" Name="btnOK" VerticalAlignment="Center" Width="75" Click="btnOK_Click" />
+		<Button Content="取消" Height="23" HorizontalAlignment="Right" Margin="0,180,62,0" Name="btnCancel" VerticalAlignment="Center" Width="75" Click="btnCancel_Click" TabIndex="7" />
+		<Button Content="确定" Height="23" HorizontalAlignment="Left" Margin="264,180,0,0" Name="btnOK" VerticalAlignment="Center" Width="75" Click="btnOK_Click" TabIndex="6" />
+		<Button Content="打开日报文件" Height="23" HorizontalAlignment="Left" Margin="30,233,0,53" Name="btnOpen" VerticalAlignment="Center" Width="75" Click="btnOpen_Click" TabIndex="8" />
 	</Grid>
 </controls:MetroWindow>
