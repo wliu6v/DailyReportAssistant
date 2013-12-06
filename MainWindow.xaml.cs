@@ -40,16 +40,33 @@ namespace DailyReportAssistant
 
         private void btnSetting_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (TabMain.IsSelected == true)
+            {
+                TabSetting.IsSelected = true;
+            }
+            else if (TabSetting.IsSelected == true)
+            {
+                // 丢弃更改
+                TabMain.IsSelected = true;
+            }
+
         }
+
+        //---- 主页面
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             String[] texts = {textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text};
             Transcation.Write(texts);
             
-            // 添加进行Svn commit 的代码
-
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.CreateNoWindow = true;
+            process.Start();
+            process.StandardInput.WriteLine("svn commit " + GlobalVar.filePath + " -m 'dailyReport'");
             Environment.Exit(Environment.ExitCode);
         }
 
@@ -159,6 +176,30 @@ namespace DailyReportAssistant
             if (e.Key == Key.Enter)
             {
                 btnOK.Focus();
+            }
+        }
+
+        //---- 设置页面
+
+        private void btnSOK_Click(object sender, RoutedEventArgs e)
+        {
+            TabMain.IsSelected = true;
+        }
+
+        private void btnSCancel_Click(object sender, RoutedEventArgs e)
+        {
+            TabMain.IsSelected = true;
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (TabMain.IsSelected == true)
+            {
+                btnSetting.Content = "设置";
+            }
+            else if (TabSetting.IsSelected == true)
+            {
+                btnSetting.Content = "取消";
             }
         }
     }

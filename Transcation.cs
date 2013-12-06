@@ -189,8 +189,18 @@ namespace DailyReportAssistant
             }
             writeStr += "\r\n";
 
-            GlobalVar.allText = writeStr + GlobalVar.allText;
+            // 判断是否存在今天的日报,防止多次提交
+            String text = GlobalVar.allText;
+            String topDate = copyLine(text);
+            if (topDate.IndexOf(GlobalVar.date) != -1)
+            {
+                //----TODO 这里的处理其实是存在问题的。如果换行标志不是\r\n的话一定是出现bug。
+                int topBlockLen = text.IndexOf("\r\n\r\n") + 4;
+                text = text.Substring(topBlockLen, text.Length - topBlockLen);
+            }
 
+            text = writeStr + text;
+            GlobalVar.allText = text;
             FileStream fs = File.OpenWrite(GlobalVar.filePath);
             StreamWriter sw = new StreamWriter(fs, GlobalVar.fileEncoding);
             sw.Write(GlobalVar.allText);
