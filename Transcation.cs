@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
 
 namespace DailyReportAssistant
 {
@@ -235,5 +236,20 @@ namespace DailyReportAssistant
             generateDailyReport(texts);
             return writeDailyReportToFile();
         }
+
+        public static String SVNCommit()
+        {
+            Process process = new Process();
+            process.StartInfo.FileName = "cmd";
+            process.StartInfo.Arguments = " /c 日报提交.bat";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            process.Start();
+            process.WaitForExit(5000);
+            process.Close();
+            process = null;
+            return "";
+        }
     }
 }
+

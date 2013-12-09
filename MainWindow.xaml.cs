@@ -101,34 +101,12 @@ namespace DailyReportAssistant
 
         //---- 主页面
 
-        private void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            String s = e.Data;
-            textBox5.Text = s;
-        }
-
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             String[] texts = {textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text};
             Transcation.Write(texts);
-            
-            //System.Diagnostics.Process process = new System.Diagnostics.Process();
-            //process.StartInfo.FileName = "cmd";
-            //process.StartInfo.UseShellExecute = false;
-            //process.StartInfo.RedirectStandardInput = true;
-            //process.StartInfo.RedirectStandardOutput = true;
-            //process.StartInfo.CreateNoWindow = true;
-            //process.Start();
-            //process.StandardInput.WriteLine("svn commit " + GlobalVar.filePath + " -m 'dailyReport'");
-            //this.WindowState = WindowState.Minimized;
-            //process.WaitForExit(5000);
-            //process.Close();
-            //process = null;
-            //process.OutputDataReceived += new DataReceivedEventHandler(Process_OutputDataReceived);
-            //System.IO.StreamReader sr = process.StandardOutput;   
-            //String output = sr.ReadToEnd();
-            //textBox5.Text = output;
-
+			this.WindowState = WindowState.Minimized;
+            String output = Transcation.SVNCommit();
             Environment.Exit(Environment.ExitCode);
         }
 
