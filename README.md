@@ -1,5 +1,5 @@
 DailyReportAssistant
----
+====================
 
 **TODO:**
 
@@ -12,3 +12,9 @@ DailyReportAssistant
 -	Setting -- ask for svn address / username / password / ...
 -	Analysis svn commit result
 -	UI -- Add window border
+-	Modify App.config
+
+Update 20131210
+----------------
+
+-	添加了 App.config 及相关的一些处理方式，现在可以通过配置文件读写 日报文件路径 了。

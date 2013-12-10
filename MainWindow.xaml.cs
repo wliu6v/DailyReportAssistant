@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Configuration;
 
 namespace DailyReportAssistant
 {
@@ -173,6 +174,8 @@ namespace DailyReportAssistant
         private void btnSOK_Click(object sender, RoutedEventArgs e)
         {
             GlobalVar.filePath = textBoxFilePath.Text;
+			Properties.Settings.Default.FilePath = GlobalVar.filePath;
+			Properties.Settings.Default.Save();
             TabMain.IsSelected = true;
         }
 

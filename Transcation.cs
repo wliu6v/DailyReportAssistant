@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
+using System.Configuration;
 
 namespace DailyReportAssistant
 {
@@ -213,8 +214,13 @@ namespace DailyReportAssistant
 
         public static bool Initialize()
         {
-            GlobalVar.filePath = "C:\\Users\\liuwei\\Documents\\MyDocuments\\DailyReport\\刘巍的日报.txt";
-            GlobalVar.fileEncoding = Encoding.Default;
+			GlobalVar.filePath = Properties.Settings.Default.FilePath;
+			//if (GlobalVar.filePath == null || GlobalVar.filePath.Length < 0)
+			//{
+			//	----TODO:首次运行时进行的处理内容
+			//}
+
+			GlobalVar.fileEncoding = Encoding.Default;
 
             if (!Transcation.setFilePath(GlobalVar.filePath))
             {
@@ -251,5 +257,11 @@ namespace DailyReportAssistant
             return "";
         }
     }
+
+
+
+
+
+
 }
 
