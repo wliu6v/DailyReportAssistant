@@ -12,7 +12,12 @@ DailyReportAssistant
 -	Setting -- ask for svn address / username / password / ...
 -	Analysis svn commit result
 -	UI -- Add window border
--	Modify App.config
+
+
+
+Update 20131211
+---------------
+-	修改了 App.config，添加了一些新的设置项。
 
 Update 20131210
 ----------------

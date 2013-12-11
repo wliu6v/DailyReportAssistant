@@ -34,5 +34,53 @@ namespace DailyReportAssistant.Properties {
                 this["FilePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Default")]
+        public string FileEncoding {
+            get {
+                return ((string)(this["FileEncoding"]));
+            }
+            set {
+                this["FileEncoding"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShouldSvnCommit {
+            get {
+                return ((bool)(this["ShouldSvnCommit"]));
+            }
+            set {
+                this["ShouldSvnCommit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SvnUsername {
+            get {
+                return ((string)(this["SvnUsername"]));
+            }
+            set {
+                this["SvnUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SvnPassword {
+            get {
+                return ((string)(this["SvnPassword"]));
+            }
+            set {
+                this["SvnPassword"] = value;
+            }
+        }
     }
 }

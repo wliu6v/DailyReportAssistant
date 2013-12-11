@@ -5,5 +5,17 @@
     <Setting Name="FilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\\Users\\liuwei\\Documents\\MyDocuments\\DailyReport\\刘巍的日报.txt</Value>
     </Setting>
+    <Setting Name="FileEncoding" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Default</Value>
+    </Setting>
+    <Setting Name="ShouldSvnCommit" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SvnUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SvnPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
