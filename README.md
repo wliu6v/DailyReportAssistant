@@ -4,16 +4,20 @@ DailyReportAssistant
 **TODO:**
 
 -	Add File Encoding Detact
--	Add File Encoding Select
 -	Auto Build svn_commit.bat
--	Auto detact line breaker \r \n
 -	key up & key down
--	Setting -- Auto commit to SVN
 -	Setting -- ask for svn address / username / password / ...
 -	Analysis svn commit result
 -	UI -- Add window border
 
-
+Update 20131212
+--------------
+修改了许多内容：
+每行日报填写完毕的时候都检查一下末尾字符是否为句号"。"，如果不是的话则添加
+修复了之前在1000字节位置出现乱码的问题
+优化了对于换行符的处理方式，尽量避免跨平台问题。
+添加了对文件编码的选择
+添加了选择是否svn提交的功能
 
 Update 20131211
 ---------------

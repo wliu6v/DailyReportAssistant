@@ -25,7 +25,7 @@ namespace DailyReportAssistant.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\Users\\\\liuwei\\\\Documents\\\\MyDocuments\\\\DailyReport\\\\刘巍的日报.txt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\liuwei\\Documents\\MyDocuments\\DailyReport\\刘巍的日报.txt")]
         public string FilePath {
             get {
                 return ((string)(this["FilePath"]));
@@ -37,10 +37,10 @@ namespace DailyReportAssistant.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Default")]
-        public string FileEncoding {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint FileEncoding {
             get {
-                return ((string)(this["FileEncoding"]));
+                return ((uint)(this["FileEncoding"]));
             }
             set {
                 this["FileEncoding"] = value;
@@ -80,6 +80,39 @@ namespace DailyReportAssistant.Properties {
             }
             set {
                 this["SvnPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public float Version {
+            get {
+                return ((float)(this["Version"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2013-12-11")]
+        public global::System.DateTime FirstUseTime {
+            get {
+                return ((global::System.DateTime)(this["FirstUseTime"]));
+            }
+            set {
+                this["FirstUseTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint UseCount {
+            get {
+                return ((uint)(this["UseCount"]));
+            }
+            set {
+                this["UseCount"] = value;
             }
         }
     }

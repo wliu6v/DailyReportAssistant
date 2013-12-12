@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Configuration;
+using System.Collections.ObjectModel;
 
 namespace DailyReportAssistant
 {
@@ -20,53 +21,51 @@ namespace DailyReportAssistant
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
     /// 
-    
-
     public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
 
-            Transcation.Initialize();
+            Transcation.AppInitialize();
 
             // 主界面初始化
             String[] texts = Transcation.Read();
+
             textBox1.Text = GlobalVar.dailyReport[0];
             textBox2.Text = GlobalVar.dailyReport[1];
             textBox3.Text = GlobalVar.dailyReport[2];
             textBox4.Text = GlobalVar.dailyReport[3];
             textBox5.Text = GlobalVar.dailyReport[4];
             textBox1.Focus();
-
         }
 
         private void btnSetting_Click(object sender, RoutedEventArgs e)
         {
             if (TabMain.IsSelected == true)
             {
-                TabSetting.IsSelected = true;
+				jmpToTabSetting();
             }
             else if (TabSetting.IsSelected == true)
             {
                 // 丢弃更改
-                TabMain.IsSelected = true;
+				jmpToTabMain();
             }
 
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (TabMain.IsSelected == true)
-            {
-                btnSetting.Content = "设置";
-            }
-            else if (TabSetting.IsSelected == true)
-            {
-                settingViewInitial();
-                btnSetting.Content = "取消";
-            }
-        }
+		private void jmpToTabMain()
+		{
+			TabMain.IsSelected = true;
+			btnSetting.Content = "设置";
+		}
+
+		private void jmpToTabSetting()
+		{
+			TabSetting.IsSelected = true;
+			settingViewInitial();
+			btnSetting.Content = "取消";
+		}
 
         private void MetroWindow_KeyDown(object sender, KeyEventArgs e)
         {
@@ -106,8 +105,11 @@ namespace DailyReportAssistant
         {
             String[] texts = {textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text};
             Transcation.Write(texts);
-			this.WindowState = WindowState.Minimized;
-            String output = Transcation.SVNCommit();
+			if (GlobalVar.shouldSvnCommit)
+			{
+				this.WindowState = WindowState.Minimized;
+				String output = Transcation.SVNCommit();
+			}
             Environment.Exit(Environment.ExitCode);
         }
 
@@ -167,21 +169,24 @@ namespace DailyReportAssistant
 
         private void settingViewInitial()
         {
+			comboBoxFileEncoding.SelectedValue = GlobalVar.fileEncoding;
+			checkboxAutoCommit.IsChecked = GlobalVar.shouldSvnCommit;
             textBoxFilePath.Text = GlobalVar.filePath;
+			
         }
-
 
         private void btnSOK_Click(object sender, RoutedEventArgs e)
         {
             GlobalVar.filePath = textBoxFilePath.Text;
-			Properties.Settings.Default.FilePath = GlobalVar.filePath;
-			Properties.Settings.Default.Save();
-            TabMain.IsSelected = true;
+			GlobalVar.shouldSvnCommit = (bool)checkboxAutoCommit.IsChecked || false;
+			GlobalVar.fileEncoding = (Encoding)comboBoxFileEncoding.SelectedValue;
+			Transcation.SaveConfig();
+			jmpToTabMain();
         }
 
         private void btnSCancel_Click(object sender, RoutedEventArgs e)
         {
-            TabMain.IsSelected = true;
+			jmpToTabMain();
         }
 
         private void btnSOpen_Click(object sender, RoutedEventArgs e)
@@ -202,4 +207,24 @@ namespace DailyReportAssistant
             }
         }
     }
+
+
+	// 数据项
+	public class TextEncoding
+	{
+		public TextEncoding() {}
+		public String encodeName { set; get; }
+		public Encoding encoding { set; get; }
+	}
+
+	public class TextEncodingList : ObservableCollection<TextEncoding>
+	{
+		public TextEncodingList()
+		{
+			this.Add(new TextEncoding { encodeName = "ANSI", encoding = Encoding.Default });
+			this.Add(new TextEncoding { encodeName = "UTF8", encoding = Encoding.UTF8 });
+			this.Add(new TextEncoding { encodeName = "Unicode/UCS2LE", encoding = Encoding.Unicode });
+		}
+	}
+
 }
