@@ -27,17 +27,28 @@ namespace DailyReportAssistant
         {
             InitializeComponent();
 
-            Transcation.AppInitialize();
+            uint errorCode = Transcation.AppInitialize();
+			if (errorCode == ERR.AI_NO_FILE)
+			{
+				//  令用户输入日报文件路径
+				jmpToTabSetting();
+				MessageBox.Show("请填写日报路径", "日报小助手友情提示", MessageBoxButton.OK);
+				
+			}
+			else if (errorCode == ERR.SUCCESS)
+			{
+				// 主界面初始化
+				String[] texts = Transcation.Read();
 
-            // 主界面初始化
-            String[] texts = Transcation.Read();
+				textBox1.Text = GlobalVar.dailyReport[0];
+				textBox2.Text = GlobalVar.dailyReport[1];
+				textBox3.Text = GlobalVar.dailyReport[2];
+				textBox4.Text = GlobalVar.dailyReport[3];
+				textBox5.Text = GlobalVar.dailyReport[4];
+				textBox1.Focus();
+			}
 
-            textBox1.Text = GlobalVar.dailyReport[0];
-            textBox2.Text = GlobalVar.dailyReport[1];
-            textBox3.Text = GlobalVar.dailyReport[2];
-            textBox4.Text = GlobalVar.dailyReport[3];
-            textBox5.Text = GlobalVar.dailyReport[4];
-            textBox1.Focus();
+
         }
 
         private void btnSetting_Click(object sender, RoutedEventArgs e)
@@ -56,6 +67,11 @@ namespace DailyReportAssistant
 
 		private void jmpToTabMain()
 		{
+			if (GlobalVar.filePath.Length == 0 && textBoxFilePath.Text.Length == 0)
+			{
+				MessageBox.Show("请填写日报路径", "日报小助手友情提示", MessageBoxButton.OK);
+				return;
+			}
 			TabMain.IsSelected = true;
 			btnSetting.Content = "设置";
 		}
@@ -193,12 +209,16 @@ namespace DailyReportAssistant
         {
             System.Windows.Forms.OpenFileDialog openFile = new System.Windows.Forms.OpenFileDialog();
             openFile.Title = "选择日报文件";
-            int pathLen = textBoxFilePath.Text.LastIndexOf("\\");
-            
-            openFile.InitialDirectory = textBoxFilePath.Text.Substring(0, pathLen);
-            openFile.FileName = textBoxFilePath.Text.Substring(pathLen + 1, textBoxFilePath.Text.Length - pathLen - 1);
             openFile.DefaultExt = "*.txt";
             openFile.Filter = "txt文件|*.txt|所有文件|*.*";
+
+			if (textBoxFilePath.Text != null && textBoxFilePath.Text.Length > 0)
+			{
+				int pathLen = textBoxFilePath.Text.LastIndexOf("\\");
+				openFile.InitialDirectory = textBoxFilePath.Text.Substring(0, pathLen);
+				openFile.FileName = textBoxFilePath.Text.Substring(pathLen + 1, textBoxFilePath.Text.Length - pathLen - 1);
+			}
+
             System.Windows.Forms.DialogResult result =  openFile.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK
                 || result == System.Windows.Forms.DialogResult.Yes)

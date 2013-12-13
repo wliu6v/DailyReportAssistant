@@ -119,6 +119,7 @@ namespace DailyReportAssistant
 			{
 				GlobalVar.filePath = "";
 				errorCode = ERR.AI_NO_FILE;
+				goto _EXIT;
 			}
 
 			// 确定日报文件编码
@@ -152,6 +153,7 @@ namespace DailyReportAssistant
 			Transcation.getDate();
 
 			errorCode = ERR.SUCCESS;
+			_EXIT:
 			return errorCode;
 		}
 

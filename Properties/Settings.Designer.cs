@@ -25,7 +25,7 @@ namespace DailyReportAssistant.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\liuwei\\Documents\\MyDocuments\\DailyReport\\刘巍的日报.txt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string FilePath {
             get {
                 return ((string)(this["FilePath"]));
