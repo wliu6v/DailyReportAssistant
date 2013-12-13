@@ -6,12 +6,17 @@ DailyReportAssistant
 -	Add File Encoding Detact
 -	key up & key down
 -	UI -- Add window border
+-	修改设置界面中tab顺序
+-	添加设置界面对按键的相应。回车等按钮。
+-	将日报填写框设置为虚内容。
+-	UI -- 字体与字号
 
 Update 20131213
 --------------
 -	能够自动生成 svn commit 的脚本了。不过其实不生成应该也无所谓
 -	首次启动时需要先选择日报文件路径。
 -	添加了svn用户名密码的设置
+-	小幅度调整界面
 
 Update 20131212
 --------------

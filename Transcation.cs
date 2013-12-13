@@ -371,7 +371,12 @@ namespace DailyReportAssistant
             process = null;
             return "";
         }
-    }
 
+		public static Encoding DetactEncoding()
+		{
+			System.Windows.MessageBox.Show("不好意思啦，这功能还没写好呢", "日报小助手");
+			return null;
+		}
+    }
 }
 

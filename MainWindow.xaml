@@ -7,13 +7,14 @@
     Title="日报小助手" 
 	Height="350" 
 	Width="525"
+	FontFamily="YaHei Consolas Hybrid"
 	ShowIconOnTitleBar="True"
-	WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" KeyDown="MetroWindow_KeyDown">
+	WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" KeyDown="MetroWindow_KeyDown" BorderBrush="#44000000" WindowStyle="ThreeDBorderWindow" Background="#FFEFF3F8" OpacityMask="{x:Null}" FontSize="12" BorderThickness="0,0,2,2">
 
 	<Window.Resources>
 		<c:TextEncodingList x:Key="TextEncodings" />
 	</Window.Resources>
-	
+
 	<!-- 标题栏 -->
 	<controls:MetroWindow.WindowCommands>
 		<controls:WindowCommands>
@@ -43,8 +44,8 @@
 				<TextBox Height="28" Margin="100,70,60,0"	Name="textBox5" VerticalAlignment="Center" controls:TextboxHelper.ClearTextButton="True" Text="日报内容5" FontSize="14" GotFocus="textBox_GotFocus" KeyDown="textBox_KeyDown" TabIndex="5" />
 
 				<Button Content="取消" Height="23" HorizontalAlignment="Right" Margin="0,180,62,0" Name="btnCancel" VerticalAlignment="Center" Width="75" Click="btnCancel_Click" TabIndex="7" />
-				<Button Content="确定" Height="23" HorizontalAlignment="Right" Margin="0,180,162,0" Name="btnOK" VerticalAlignment="Center" Width="75" Click="btnOK_Click" TabIndex="6"  />
-				<Button Content="打开日报文件" Height="23" HorizontalAlignment="Left" Margin="33,180,0,0" Name="btnOpenFile" VerticalAlignment="Center" Width="75" Click="btnOpenFile_Click" TabIndex="8" />
+				<Button Content="确定" Height="23" HorizontalAlignment="Right" Margin="0,180,162,0" Name="btnOK" VerticalAlignment="Center" Width="75" Click="btnOK_Click" TabIndex="6" />
+				<Button Content="打开日报文件" Height="23" HorizontalAlignment="Left" Margin="33,180,0,0" Name="btnOpenFile" VerticalAlignment="Center" Width="93" Click="btnOpenFile_Click" TabIndex="8" />
 			</Grid>
 		</TabItem>
 
@@ -57,7 +58,7 @@
 				<Button Content="浏览..." Height="23" HorizontalAlignment="Left" Margin="442,42,0,0" Name="btnSOpen" VerticalAlignment="Top" Width="42" Click="btnSOpen_Click" TabIndex="1"/>
 				<Label Content="日报文件编码" Height="28" HorizontalAlignment="Left" Margin="30,85,0,0" Name="label7" VerticalAlignment="Top" FontSize="12"/>
 				<ComboBox Height="28" HorizontalAlignment="Left" Margin="120,85,0,0" Name="comboBoxFileEncoding" VerticalAlignment="Top" Width="190" TabIndex="3" ItemsSource="{StaticResource TextEncodings}" DisplayMemberPath="encodeName" SelectedValuePath="encoding" />
-				<Button Content="自动检测编码" Height="23" HorizontalAlignment="Right" Margin="0,88,81,0" Name="btnSDetactEncoding" VerticalAlignment="Top" Width="81" TabIndex="4"/>
+				<Button Content="自动检测编码" Height="23" HorizontalAlignment="Right" Margin="0,88,81,0" Name="btnSDetactEncoding" VerticalAlignment="Top" Width="81" TabIndex="4" Click="btnSDetactEncoding_Click" />
 				<CheckBox Content="自动提交至SVN" Height="20" HorizontalAlignment="Left" Margin="34,143,0,0" Name="checkboxAutoCommit" VerticalAlignment="Top" TabIndex="5" Checked="checkBoxAutoCommit_Checked" Unchecked="checkBoxAutoCommit_Unchecked"/>
 				<Label Content="SVN 用户名" Height="28" HorizontalAlignment="Left" Margin="180,140,0,0" VerticalAlignment="Top" FontSize="12"/>
 				<TextBox Name="textBoxSvnUsername" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Margin="270,140,0,0" Width="150" />

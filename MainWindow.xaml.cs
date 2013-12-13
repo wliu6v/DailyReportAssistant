@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Configuration;
 using System.Collections.ObjectModel;
+using MahApps.Metro;
 
 namespace DailyReportAssistant
 {
@@ -35,7 +36,7 @@ namespace DailyReportAssistant
 			{
 				//  令用户输入日报文件路径
 				jmpToTabSetting();
-				MessageBox.Show("请填写日报路径", "日报小助手友情提示", MessageBoxButton.OK);
+				MessageBox.Show("请填写日报路径", "日报小助手", MessageBoxButton.OK);
 				
 			}
 			else if (errorCode == ERR.SUCCESS)
@@ -44,7 +45,7 @@ namespace DailyReportAssistant
 				getDailyReportText();
 			}
 
-
+			ThemeManager.ChangeTheme(this, ThemeManager.DefaultAccents.First(a => a.Name == "Blue"), Theme.Light);
         }
 
 		private void getDailyReportText()
@@ -261,6 +262,12 @@ namespace DailyReportAssistant
 			textBoxSvnUsername.IsEnabled = true;
 			textBoxSvnPassword.IsEnabled = true;
 		}
+
+		private void btnSDetactEncoding_Click(object sender, RoutedEventArgs e)
+		{
+			Transcation.DetactEncoding();
+		}
+
     }
 
 
