@@ -23,11 +23,14 @@ namespace DailyReportAssistant
     /// 
     public partial class MainWindow
     {
+		private bool fileChanged = false;	// 如果日报文件在设置里面发生了改变，那么跳转回主页面时需重新读取
+
         public MainWindow()
         {
             InitializeComponent();
 
             uint errorCode = Transcation.AppInitialize();
+
 			if (errorCode == ERR.AI_NO_FILE)
 			{
 				//  令用户输入日报文件路径
@@ -38,18 +41,27 @@ namespace DailyReportAssistant
 			else if (errorCode == ERR.SUCCESS)
 			{
 				// 主界面初始化
-				String[] texts = Transcation.Read();
-
-				textBox1.Text = GlobalVar.dailyReport[0];
-				textBox2.Text = GlobalVar.dailyReport[1];
-				textBox3.Text = GlobalVar.dailyReport[2];
-				textBox4.Text = GlobalVar.dailyReport[3];
-				textBox5.Text = GlobalVar.dailyReport[4];
-				textBox1.Focus();
+				getDailyReportText();
 			}
 
 
         }
+
+		private void getDailyReportText()
+		{
+			String[] texts = Transcation.Read();
+			textBox1.Text = "";
+			textBox2.Text = "";
+			textBox3.Text = "";
+			textBox4.Text = "";
+			textBox5.Text = "";
+			textBox1.Text = GlobalVar.dailyReport[0];
+			textBox2.Text = GlobalVar.dailyReport[1];
+			textBox3.Text = GlobalVar.dailyReport[2];
+			textBox4.Text = GlobalVar.dailyReport[3];
+			textBox5.Text = GlobalVar.dailyReport[4];
+			textBox1.Focus();
+		}
 
         private void btnSetting_Click(object sender, RoutedEventArgs e)
         {
@@ -71,6 +83,11 @@ namespace DailyReportAssistant
 			{
 				MessageBox.Show("请填写日报路径", "日报小助手友情提示", MessageBoxButton.OK);
 				return;
+			}
+			if (fileChanged)
+			{
+				getDailyReportText();
+				fileChanged = false;
 			}
 			TabMain.IsSelected = true;
 			btnSetting.Content = "设置";
@@ -188,7 +205,10 @@ namespace DailyReportAssistant
 			comboBoxFileEncoding.SelectedValue = GlobalVar.fileEncoding;
 			checkboxAutoCommit.IsChecked = GlobalVar.shouldSvnCommit;
             textBoxFilePath.Text = GlobalVar.filePath;
-			
+			textBoxSvnUsername.Text = GlobalVar.svnUsername;
+			textBoxSvnPassword.Password = GlobalVar.svnPassword;
+			textBoxSvnUsername.IsEnabled = (bool)checkboxAutoCommit.IsChecked;
+			textBoxSvnPassword.IsEnabled = (bool)checkboxAutoCommit.IsChecked;
         }
 
         private void btnSOK_Click(object sender, RoutedEventArgs e)
@@ -196,7 +216,10 @@ namespace DailyReportAssistant
             GlobalVar.filePath = textBoxFilePath.Text;
 			GlobalVar.shouldSvnCommit = (bool)checkboxAutoCommit.IsChecked || false;
 			GlobalVar.fileEncoding = (Encoding)comboBoxFileEncoding.SelectedValue;
+			GlobalVar.svnUsername = textBoxSvnUsername.Text;
+			GlobalVar.svnPassword = textBoxSvnPassword.Password;
 			Transcation.SaveConfig();
+			fileChanged = true;	// 偷懒了，其实日报文件是否改变不是这么判断的。
 			jmpToTabMain();
         }
 
@@ -226,6 +249,18 @@ namespace DailyReportAssistant
                 textBoxFilePath.Text = openFile.FileName.Trim();
             }
         }
+
+		private void checkBoxAutoCommit_Unchecked(object sender, RoutedEventArgs e)
+		{
+			textBoxSvnUsername.IsEnabled = false;
+			textBoxSvnPassword.IsEnabled = false;
+		}
+
+		private void checkBoxAutoCommit_Checked(object sender, RoutedEventArgs e)
+		{
+			textBoxSvnUsername.IsEnabled = true;
+			textBoxSvnPassword.IsEnabled = true;
+		}
     }
 
 

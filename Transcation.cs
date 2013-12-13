@@ -112,16 +112,6 @@ namespace DailyReportAssistant
 			}
 			appSetting.UseCount++;
 
-			// 检查日报文件是否存在
-			GlobalVar.filePath = appSetting.FilePath;
-			if (appSetting.FilePath.Length == 0
-				|| appSetting.FilePath == null)
-			{
-				GlobalVar.filePath = "";
-				errorCode = ERR.AI_NO_FILE;
-				goto _EXIT;
-			}
-
 			// 确定日报文件编码
 			switch (appSetting.FileEncoding)
 			{
@@ -144,13 +134,18 @@ namespace DailyReportAssistant
 			GlobalVar.svnUsername = appSetting.SvnUsername;
 			GlobalVar.svnPassword = appSetting.SvnPassword;
 
-			errorCode = Transcation.getFileText();
-			if (errorCode != ERR.SUCCESS)
-			{
-				return errorCode;
-			}
-
+			// 获取日期
 			Transcation.getDate();
+
+			// 检查日报文件是否存在
+			GlobalVar.filePath = appSetting.FilePath;
+			if (appSetting.FilePath.Length == 0
+				|| appSetting.FilePath == null)
+			{
+				GlobalVar.filePath = "";
+				errorCode = ERR.AI_NO_FILE;
+				goto _EXIT;
+			}
 
 			errorCode = ERR.SUCCESS;
 			_EXIT:
@@ -174,6 +169,7 @@ namespace DailyReportAssistant
 			else if (GlobalVar.fileEncoding == Encoding.Unicode) { appSetting.FileEncoding = EncodingUCS2LE; }
 			else { appSetting.FileEncoding = EncodingANSI; }
 
+			appSetting.Save();
 			return ERR.SUCCESS;
 		}
 
@@ -249,6 +245,12 @@ namespace DailyReportAssistant
         // 获取最上面一次的日报内容.
         private static bool readDailyReport()
         {
+			uint errorCode = Transcation.getFileText();
+			if (errorCode != ERR.SUCCESS)
+			{
+				return false;
+			}
+
 			String tmpStr = GlobalVar.allText.Substring(0, 1000);
 			tmpStr = tmpStr.Replace("\r\n", "\n");
 			tmpStr = tmpStr.Replace("\r", "\n");
@@ -345,12 +347,14 @@ namespace DailyReportAssistant
 			String batName = "svn_commit.bat";
 			String dir = GlobalVar.filePath.Substring(0, GlobalVar.filePath.IndexOf(":\\"));
 			String path = GlobalVar.filePath.Substring(0, GlobalVar.filePath.LastIndexOf("\\"));
-
+			String svnCommitStr = "svn commit -m 'DailyReportAssistant'";
+			if (GlobalVar.svnUsername.Length > 0) { svnCommitStr = svnCommitStr + " --username " + GlobalVar.svnUsername; }
+			if (GlobalVar.svnPassword.Length > 0) { svnCommitStr = svnCommitStr + " --password " + GlobalVar.svnPassword; }
 			FileStream fs = new FileStream(batName, FileMode.OpenOrCreate, FileAccess.Write);
 			StreamWriter sw = new StreamWriter(fs, Encoding.Default);
 			sw.WriteLine(dir + ":");
 			sw.WriteLine("cd " + path);
-			sw.WriteLine("svn ci -m 'DailyReport'");
+			sw.WriteLine(svnCommitStr);
 			sw.WriteLine("timeout 3");
 			sw.Flush();
 			sw.Close();

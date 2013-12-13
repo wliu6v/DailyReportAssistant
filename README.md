@@ -5,13 +5,13 @@ DailyReportAssistant
 
 -	Add File Encoding Detact
 -	key up & key down
--	Setting -- ask for svn address / username / password / ...
 -	UI -- Add window border
 
 Update 20131213
 --------------
 -	能够自动生成 svn commit 的脚本了。不过其实不生成应该也无所谓
 -	首次启动时需要先选择日报文件路径。
+-	添加了svn用户名密码的设置
 
 Update 20131212
 --------------
