@@ -321,6 +321,7 @@ namespace DailyReportAssistant
             sw.Write(GlobalVar.allText);
             sw.Flush();
             sw.Close();
+			fs.Close();
             return true;
 
         }
@@ -339,11 +340,25 @@ namespace DailyReportAssistant
 
         public static String SVNCommit()
         {
+			String batName = "svn_commit.bat";
+			String dir = GlobalVar.filePath.Substring(0, GlobalVar.filePath.IndexOf(":\\"));
+			String path = GlobalVar.filePath.Substring(0, GlobalVar.filePath.LastIndexOf("\\"));
+
+			FileStream fs = new FileStream(batName, FileMode.OpenOrCreate, FileAccess.Write);
+			StreamWriter sw = new StreamWriter(fs, Encoding.Default);
+			sw.WriteLine(dir + ":");
+			sw.WriteLine("cd " + path);
+			sw.WriteLine("svn ci -m 'DailyReport'");
+			sw.WriteLine("timeout 3");
+			sw.Flush();
+			sw.Close();
+			fs.Close();
+
             Process process = new Process();
             process.StartInfo.FileName = "cmd";
-            process.StartInfo.Arguments = " /c 日报提交.bat";
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.Arguments = " /c " + batName;
+            process.StartInfo.UseShellExecute = true;
+            process.StartInfo.CreateNoWindow = false;
             process.Start();
             process.WaitForExit(5000);
             process.Close();
@@ -351,9 +366,6 @@ namespace DailyReportAssistant
             return "";
         }
     }
-
-
-
 
 }
 
