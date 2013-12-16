@@ -55,10 +55,10 @@
 				<Button Content="取消" Margin="0,180,62,0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Height="25" Click="btnSCancel_Click" Name="btnSCancel" TabIndex="7"/>
 				<Label Content="日报文件路径" Height="28" HorizontalAlignment="Left" Margin="30,40,0,0" Name="label6" VerticalAlignment="Top" FontSize="12"/>
 				<TextBox Height="28" HorizontalAlignment="Left" Margin="120,40,0,0" Name="textBoxFilePath" VerticalAlignment="Top" Width="300" FontSize="14" TabIndex="2"/>
-				<Button Content="浏览..." Height="23" HorizontalAlignment="Left" Margin="442,42,0,0" Name="btnSOpen" VerticalAlignment="Top" Width="42" Click="btnSOpen_Click" TabIndex="1"/>
+				<Button Content="浏览..." Height="25" HorizontalAlignment="Left" Margin="442,42,0,0" Name="btnSOpen" VerticalAlignment="Top" Width="45" Click="btnSOpen_Click" TabIndex="1"/>
 				<Label Content="日报文件编码" Height="28" HorizontalAlignment="Left" Margin="30,85,0,0" Name="label7" VerticalAlignment="Top" FontSize="12"/>
 				<ComboBox Height="28" HorizontalAlignment="Left" Margin="120,85,0,0" Name="comboBoxFileEncoding" VerticalAlignment="Top" Width="190" TabIndex="3" ItemsSource="{StaticResource TextEncodings}" DisplayMemberPath="encodeName" SelectedValuePath="encoding" />
-				<Button Content="自动检测编码" Height="23" HorizontalAlignment="Right" Margin="0,88,81,0" Name="btnSDetactEncoding" VerticalAlignment="Top" Width="81" TabIndex="4" Click="btnSDetactEncoding_Click" />
+				<Button Content="自动检测编码" Height="25" HorizontalAlignment="Right" Margin="0,88,81,0" Name="btnSDetactEncoding" VerticalAlignment="Top" Width="95" TabIndex="4" Click="btnSDetactEncoding_Click" />
 				<CheckBox Content="自动提交至SVN" Height="20" HorizontalAlignment="Left" Margin="34,143,0,0" Name="checkboxAutoCommit" VerticalAlignment="Top" TabIndex="5" Checked="checkBoxAutoCommit_Checked" Unchecked="checkBoxAutoCommit_Unchecked"/>
 				<Label Content="SVN 用户名" Height="28" HorizontalAlignment="Left" Margin="180,140,0,0" VerticalAlignment="Top" FontSize="12"/>
 				<TextBox Name="textBoxSvnUsername" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Margin="270,140,0,0" Width="150" />

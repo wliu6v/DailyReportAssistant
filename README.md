@@ -5,12 +5,16 @@ DailyReportAssistant
 
 -	Add File Encoding Detact
 -	key up & key down
--	UI -- Add window border
 -	修改设置界面中tab顺序
 -	添加设置界面对按键的相应。回车等按钮。
 -	将日报填写框设置为虚内容。
 -	UI -- 字体与字号
+-	将MessageBox替换为其他更为友好的交互方式。
+
+Update 20131216
+---------------
 -	为这个应用添加中文名与图标，使发布的时候更像样子
+-	修改了部分按钮的尺寸
 
 Update 20131213
 --------------
