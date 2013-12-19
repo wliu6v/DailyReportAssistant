@@ -265,7 +265,15 @@ namespace DailyReportAssistant
 
 		private void btnSDetactEncoding_Click(object sender, RoutedEventArgs e)
 		{
-			Transcation.DetactEncoding();
+			if (textBoxFilePath.Text.Length == 0
+				|| !System.IO.File.Exists(textBoxFilePath.Text))
+			{
+				MessageBox.Show("未找到日报文件，请检查日报路径是否正确", "日报小助手友情提示", MessageBoxButton.OK);
+			}
+			else
+			{
+				comboBoxFileEncoding.SelectedValue = Transcation.DetactEncoding(textBoxFilePath.Text);
+			}
 		}
 
     }

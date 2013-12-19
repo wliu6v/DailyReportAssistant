@@ -76,6 +76,9 @@
     <Reference Include="MahApps.Metro">
       <HintPath>packages\MahApps.Metro.0.11.0.0\lib\net40\MahApps.Metro.dll</HintPath>
     </Reference>
+    <Reference Include="NUniversalCharDet">
+      <HintPath>lib\NUniversalCharDet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />

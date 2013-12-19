@@ -6,6 +6,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Configuration;
 using System.Collections.ObjectModel;
+using Mozilla.NUniversalCharDet;
 
 namespace DailyReportAssistant
 {
@@ -372,11 +373,58 @@ namespace DailyReportAssistant
             return "";
         }
 
-		public static Encoding DetactEncoding()
+		public static Encoding DetactEncoding(string path)
 		{
-			System.Windows.MessageBox.Show("不好意思啦，这功能还没写好呢", "日报小助手");
-			return null;
+			Stream myStream = File.Open(GlobalVar.filePath, FileMode.Open);
+			MemoryStream msTemp = new MemoryStream();
+			int len = 0;
+			byte[] buff = new byte[512];
+			Encoding encoding = null;
+
+			while ((len = myStream.Read(buff, 0, 512)) > 0)
+			{
+				msTemp.Write(buff, 0, len);
+			}
+			myStream.Close();
+
+			if (msTemp.Length > 0)
+			{
+				msTemp.Seek(0, SeekOrigin.Begin);
+				byte[] PageBytes = new byte[msTemp.Length];
+				msTemp.Read(PageBytes, 0, PageBytes.Length);
+
+				msTemp.Seek(0, SeekOrigin.Begin);
+				int DetLen = 0;
+				byte[] DetectBuff = new byte[4096];
+				CharsetListener listener = new CharsetListener();
+				UniversalDetector Det = new UniversalDetector(null);
+				while ((DetLen = msTemp.Read(DetectBuff, 0, DetectBuff.Length)) > 0
+					&& !Det.IsDone())
+				{
+					Det.HandleData(DetectBuff, 0, DetectBuff.Length);
+				}
+				Det.DataEnd();
+				if (Det.GetDetectedCharset() != null)
+				{
+					encoding = Encoding.GetEncoding(Det.GetDetectedCharset());
+				}
+				else
+				{
+					encoding = Encoding.Default;
+				}
+			}
+
+			return encoding;
 		}
+    }
+
+	public class CharsetListener : ICharsetListener
+    {
+        public string Charset;
+        public void Report(string charset)
+        {
+            this.Charset = charset;
+        }
     }
 }
 

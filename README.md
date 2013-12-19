@@ -3,13 +3,16 @@ DailyReportAssistant
 
 **TODO:**
 
--	Add File Encoding Detact
 -	key up & key down
 -	修改设置界面中tab顺序
 -	添加设置界面对按键的相应。回车等按钮。
 -	将日报填写框设置为虚内容。
 -	UI -- 字体与字号
 -	将MessageBox替换为其他更为友好的交互方式。
+
+Update 20131219
+---------------
+-	添加了对指定文件的字符编码的自动检测功能。
 
 Update 20131216
 ---------------
