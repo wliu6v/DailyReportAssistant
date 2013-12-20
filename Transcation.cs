@@ -92,10 +92,6 @@ namespace DailyReportAssistant
     {
 		private static Properties.Settings appSetting;
 
-		private const uint EncodingANSI = 0x01;
-		private const uint EncodingUTF8 = 0x02;
-		private const uint EncodingUCS2LE = 0x04;
-
 		/***********************************************************
 		 * AppInitialize
 		 * 应用程序初始化
@@ -114,21 +110,10 @@ namespace DailyReportAssistant
 			appSetting.UseCount++;
 
 			// 确定日报文件编码
-			switch (appSetting.FileEncoding)
-			{
-				case EncodingANSI:
-					GlobalVar.fileEncoding = Encoding.Default;
-					break;
-				case EncodingUTF8:
-					GlobalVar.fileEncoding = Encoding.UTF8;
-					break;
-				case EncodingUCS2LE:
-					GlobalVar.fileEncoding = Encoding.Unicode;
-					break;
-				default:
-					GlobalVar.fileEncoding = Encoding.Default;
-					break;
-			}
+			if (appSetting.FileEncoding == null || appSetting.FileEncoding.Length == 0)
+				GlobalVar.fileEncoding = Encoding.Default;
+			else
+				GlobalVar.fileEncoding = Encoding.GetEncoding(appSetting.FileEncoding);
 			
 			// 读取 SVN 相关项
 			GlobalVar.shouldSvnCommit = appSetting.ShouldSvnCommit;
@@ -164,11 +149,7 @@ namespace DailyReportAssistant
 			appSetting.ShouldSvnCommit = GlobalVar.shouldSvnCommit;
 			appSetting.SvnUsername = GlobalVar.svnUsername;
 			appSetting.SvnPassword = GlobalVar.svnPassword;
-
-			if (GlobalVar.fileEncoding == Encoding.Default) { appSetting.FileEncoding = EncodingANSI; }
-			else if (GlobalVar.fileEncoding == Encoding.UTF8) { appSetting.FileEncoding = EncodingUTF8; }
-			else if (GlobalVar.fileEncoding == Encoding.Unicode) { appSetting.FileEncoding = EncodingUCS2LE; }
-			else { appSetting.FileEncoding = EncodingANSI; }
+			appSetting.FileEncoding = GlobalVar.fileEncoding.EncodingName;
 
 			appSetting.Save();
 			return ERR.SUCCESS;
@@ -375,7 +356,9 @@ namespace DailyReportAssistant
 
 		public static Encoding DetactEncoding(string path)
 		{
-			Stream myStream = File.Open(GlobalVar.filePath, FileMode.Open);
+			if (!File.Exists(path))
+				return null;
+			Stream myStream = File.Open(path, FileMode.Open);
 			MemoryStream msTemp = new MemoryStream();
 			int len = 0;
 			byte[] buff = new byte[512];
@@ -411,7 +394,14 @@ namespace DailyReportAssistant
 				else
 				{
 					encoding = Encoding.Default;
+					
 				}
+			}
+
+			//---- 对读取到的 encoding 进行转化
+			if (encoding.CodePage == 54936)
+			{
+				encoding = Encoding.Default;
 			}
 
 			return encoding;

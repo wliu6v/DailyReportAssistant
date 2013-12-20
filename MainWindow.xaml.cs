@@ -13,7 +13,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Configuration;
-using System.Collections.ObjectModel;
 using MahApps.Metro;
 
 namespace DailyReportAssistant
@@ -280,21 +279,6 @@ namespace DailyReportAssistant
 
 
 	// 数据项
-	public class TextEncoding
-	{
-		public TextEncoding() {}
-		public String encodeName { set; get; }
-		public Encoding encoding { set; get; }
-	}
 
-	public class TextEncodingList : ObservableCollection<TextEncoding>
-	{
-		public TextEncodingList()
-		{
-			this.Add(new TextEncoding { encodeName = "ANSI", encoding = Encoding.Default });
-			this.Add(new TextEncoding { encodeName = "UTF8", encoding = Encoding.UTF8 });
-			this.Add(new TextEncoding { encodeName = "Unicode/UCS2LE", encoding = Encoding.Unicode });
-		}
-	}
 
 }
