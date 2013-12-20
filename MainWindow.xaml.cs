@@ -247,6 +247,7 @@ namespace DailyReportAssistant
                 || result == System.Windows.Forms.DialogResult.Yes)
             {
                 textBoxFilePath.Text = openFile.FileName.Trim();
+				btnSDetactEncoding_Click(sender, e);
             }
         }
 

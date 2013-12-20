@@ -110,10 +110,7 @@ namespace DailyReportAssistant
 			appSetting.UseCount++;
 
 			// 确定日报文件编码
-			if (appSetting.FileEncoding == null || appSetting.FileEncoding.Length == 0)
-				GlobalVar.fileEncoding = Encoding.Default;
-			else
-				GlobalVar.fileEncoding = Encoding.GetEncoding(appSetting.FileEncoding);
+			GlobalVar.fileEncoding = Encoding.GetEncoding(appSetting.FileEncoding);
 			
 			// 读取 SVN 相关项
 			GlobalVar.shouldSvnCommit = appSetting.ShouldSvnCommit;
@@ -149,7 +146,7 @@ namespace DailyReportAssistant
 			appSetting.ShouldSvnCommit = GlobalVar.shouldSvnCommit;
 			appSetting.SvnUsername = GlobalVar.svnUsername;
 			appSetting.SvnPassword = GlobalVar.svnPassword;
-			appSetting.FileEncoding = GlobalVar.fileEncoding.EncodingName;
+			appSetting.FileEncoding = GlobalVar.fileEncoding.CodePage;
 
 			appSetting.Save();
 			return ERR.SUCCESS;
@@ -394,14 +391,7 @@ namespace DailyReportAssistant
 				else
 				{
 					encoding = Encoding.Default;
-					
 				}
-			}
-
-			//---- 对读取到的 encoding 进行转化
-			if (encoding.CodePage == 54936)
-			{
-				encoding = Encoding.Default;
 			}
 
 			return encoding;

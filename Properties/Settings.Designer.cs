@@ -37,10 +37,10 @@ namespace DailyReportAssistant.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("GB18030")]
-        public string FileEncoding {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int FileEncoding {
             get {
-                return ((string)(this["FileEncoding"]));
+                return ((int)(this["FileEncoding"]));
             }
             set {
                 this["FileEncoding"] = value;
