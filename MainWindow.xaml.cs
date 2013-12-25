@@ -74,7 +74,6 @@ namespace DailyReportAssistant
                 // 丢弃更改
 				jmpToTabMain();
             }
-
         }
 
 		private void jmpToTabMain()

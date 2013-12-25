@@ -329,7 +329,7 @@ namespace DailyReportAssistant
 			String svnCommitStr = "svn commit -m 'DailyReportAssistant'";
 			if (GlobalVar.svnUsername.Length > 0) { svnCommitStr = svnCommitStr + " --username " + GlobalVar.svnUsername; }
 			if (GlobalVar.svnPassword.Length > 0) { svnCommitStr = svnCommitStr + " --password " + GlobalVar.svnPassword; }
-			FileStream fs = new FileStream(batName, FileMode.OpenOrCreate, FileAccess.Write);
+			FileStream fs = new FileStream(batName, FileMode.Create, FileAccess.Write);
 			StreamWriter sw = new StreamWriter(fs, Encoding.Default);
 			sw.WriteLine(dir + ":");
 			sw.WriteLine("cd " + path);
