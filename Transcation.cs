@@ -276,7 +276,7 @@ namespace DailyReportAssistant
             writeStr += GlobalVar.date;
             writeStr += Environment.NewLine;
             int i = 0;
-            while (GlobalVar.dailyReport[i].Length > 0)
+			while ((i < 5) && (GlobalVar.dailyReport[i].Length > 0))
             {
 				writeStr += (i + 1).ToString() + "." + GlobalVar.dailyReport[i] + Environment.NewLine;
                 i++;

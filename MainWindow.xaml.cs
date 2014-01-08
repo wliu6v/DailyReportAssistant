@@ -55,6 +55,8 @@ namespace DailyReportAssistant
 			textBox3.Text = "";
 			textBox4.Text = "";
 			textBox5.Text = "";
+			
+			//MahApps.Metro.Controls.TextboxHelper.SetWatermark(textBox1, GlobalVar.dailyReport[0]);
 			textBox1.Text = GlobalVar.dailyReport[0];
 			textBox2.Text = GlobalVar.dailyReport[1];
 			textBox3.Text = GlobalVar.dailyReport[2];
