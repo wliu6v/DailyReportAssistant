@@ -230,7 +230,8 @@ namespace DailyReportAssistant
 				return false;
 			}
 
-			String tmpStr = GlobalVar.allText.Substring(0, 1000);
+			int subLen = GlobalVar.allText.Length < 1000 ? GlobalVar.allText.Length : 1000;
+			String tmpStr = GlobalVar.allText.Substring(0, subLen);
 			tmpStr = tmpStr.Replace("\r\n", "\n");
 			tmpStr = tmpStr.Replace("\r", "\n");
 			String topBlock = tmpStr.Substring(0, tmpStr.IndexOf("\n\n") + 1);
